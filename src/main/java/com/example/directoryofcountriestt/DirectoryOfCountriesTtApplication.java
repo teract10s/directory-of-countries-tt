@@ -9,5 +9,4 @@ public class DirectoryOfCountriesTtApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DirectoryOfCountriesTtApplication.class, args);
 	}
-
 }
