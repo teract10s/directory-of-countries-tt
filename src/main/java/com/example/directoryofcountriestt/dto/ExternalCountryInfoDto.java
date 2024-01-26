@@ -1,47 +1,55 @@
-package com.example.directoryofcountriestt.entity;
+package com.example.directoryofcountriestt.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-@Entity
 @Data
-public class CountryInfo {
-    @Id
-    private Integer ccn3;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class ExternalCountryInfoDto {
+    private Long ccn3;
     private String official;
     private String common;
-    @Column(columnDefinition = "LONGTEXT")
+    @JsonProperty("nativename")
     private String nativeName;
     private String currencies;
     private String cca2;
     private String cca3;
     private boolean independent;
     private String status;
+    @JsonProperty("unmember")
     private boolean unMember;
     private String region;
+    @JsonProperty("subregion")
     private String subRegion;
+    @JsonProperty("landlocked")
     private boolean landLocked;
     private int area;
     private String flag;
     private int population;
+    @JsonProperty("startofweek")
     private String startOfWeek;
+    @JsonProperty("googlemaps")
     private String googleMaps;
+    @JsonProperty("openstreetmaps")
     private String openStreetMaps;
+    @JsonProperty("flag_png")
     private String flagPng;
+    @JsonProperty("flag_svg")
     private String flagSvg;
-    @Column(columnDefinition = "LONGTEXT")
+    @JsonProperty("flag_alt")
     private String flagAlt;
     private String format;
     private String regex;
+    @JsonProperty("coa_png")
     private String coaPng;
+    @JsonProperty("coa_svg")
     private String coaSvg;
+    @JsonProperty("idd_root")
     private String iddRoot;
-    @Column(columnDefinition = "LONGTEXT")
+    @JsonProperty("idd_suffixes")
     private String iddSuffixes;
     private String languages;
-    @Column(columnDefinition = "LONGTEXT")
     private String translations;
     private String tld;
     private String capital;

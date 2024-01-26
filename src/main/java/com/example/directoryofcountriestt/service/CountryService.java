@@ -15,12 +15,13 @@ public class CountryService {
     private final CountryMapper countryMapper;
 
     public CountryResponseDto getCountryByParams(String name, Long code) {
-        return name == null ? getCountryByCode(code) : getCountryByName(name);
+        return name == null ? getCountryByCode(code) : getCountryByShortName(name);
     }
 
-    private CountryResponseDto getCountryByName(String name) {
+    private CountryResponseDto getCountryByShortName(String name) {
         Country country = countryRepository.findByShortName(name)
-                .orElseThrow(() -> new EntityNotFoundException("Can't find country with name: " + name));
+                .orElseGet(() -> countryRepository.findByLatinName(name)
+                        .orElseThrow(() -> new EntityNotFoundException("Can't find country with code: " + name)));
         return countryMapper.toResponseDto(country);
     }
 

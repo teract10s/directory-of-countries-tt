@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  directory-of-countries-db:
+    container_name: directory-of-countries-db
+    image: mysql:8
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+  directory-of-countries-app:
+    build: .
+    container_name: directory-of-countries
+    image: directory-of-countries
+    restart: on-failure
+    depends_on:
+      - directory-of-countries-db
+    env_file: ./.env
+    ports:
+      - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
+      - $DEBUG_PORT:$DEBUG_PORT
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url" : "jdbc:mysql://directory-of-countries:$MYSQLDB_DOCKER_PORT/$MYSQLDB_DATABASE?serverTimezone=UTC",
+        "spring.datasource.username" : "$MYSQLDB_USER",
+        "spring.datasource.password" : "$MYSQLDB_ROOT_PASSWORD",
+        "spring.datasource.driverClassName" : "com.mysql.cj.jdbc.Driver"
+      }'
+      JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
