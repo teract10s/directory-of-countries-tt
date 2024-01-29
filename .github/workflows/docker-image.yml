@@ -30,7 +30,7 @@ jobs:
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: .
-          file: ./Dockerfile
+          file: ./docker-compose.yml
           push: true
           tags: teract10s/directory-of-countries
           labels: ${{ steps.meta.outputs.labels }}
