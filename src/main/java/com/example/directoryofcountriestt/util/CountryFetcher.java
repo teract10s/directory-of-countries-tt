@@ -26,7 +26,8 @@ public class CountryFetcher implements CommandLineRunner {
     public void run(String... args) throws Exception {
         String forEntity = restTemplate.getForEntity(url, String.class).getBody();
         ObjectMapper objectMapper = new ObjectMapper();
-        ExternalCountryDto[] countryResponseDtos = objectMapper.readValue(forEntity, ExternalCountryDto[].class);
+        ExternalCountryDto[] countryResponseDtos =
+                objectMapper.readValue(forEntity, ExternalCountryDto[].class);
         List<Country> fetchedCountries = Arrays.stream(countryResponseDtos)
                 .map(countryMapper::toCountry)
                 .toList();

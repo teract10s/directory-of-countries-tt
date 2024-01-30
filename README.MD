@@ -22,6 +22,7 @@ country with such data in the database.
 * Hibernate
 * Docker 3.8
 * Swagger
+* Mapstruct
 
 ---
 

@@ -21,13 +21,15 @@ public class CountryService {
     private CountryResponseDto getCountryByShortName(String name) {
         Country country = countryRepository.findByShortName(name)
                 .orElseGet(() -> countryRepository.findByLatinName(name)
-                        .orElseThrow(() -> new EntityNotFoundException("Can't find country with code: " + name)));
+                        .orElseThrow(() -> new EntityNotFoundException(
+                                "Can't find country with name: " + name)));
         return countryMapper.toResponseDto(country);
     }
 
     private CountryResponseDto getCountryByCode(Long code) {
         Country country = countryRepository.findByCountryCode(code)
-                .orElseThrow(() -> new EntityNotFoundException("Can't find country with code: " + code));
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Can't find country with code: " + code));
         return countryMapper.toResponseDto(country);
     }
 }

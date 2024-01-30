@@ -3,10 +3,12 @@ package com.example.directoryofcountriestt.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "country_info")
 public class CountryInfo {
     @Id
     private Integer ccn3;
